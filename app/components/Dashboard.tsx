@@ -15,12 +15,12 @@ import { useMemo, useState } from "react";
 import type { ElementType } from "react";
 import type {
   BucketItem,
-  GallerySection,
   PlaceCard,
   PlayerStats,
   PlaylistGroup,
   StoryMoment,
 } from "../data/anniversaryData";
+import type { GallerySection } from "./PhotoGallery";
 import BackgroundParticles from "./BackgroundParticles";
 import BucketList from "./BucketList";
 import HeroCounter from "./HeroCounter";
