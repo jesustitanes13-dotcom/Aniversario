@@ -27,23 +27,26 @@ const getDiff = (start: number): CounterValue => {
 
 export default function HeroCounter({ startDate }: HeroCounterProps) {
   const start = useMemo(() => new Date(startDate).getTime(), [startDate]);
-  const [isMounted, setIsMounted] = useState(false);
-  const [value, setValue] = useState(() => getDiff(start));
+  const [isClientReady, setIsClientReady] = useState(false);
+  const [value, setValue] = useState<CounterValue | null>(null);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const kickoff = window.setTimeout(() => {
+      setIsClientReady(true);
+      setValue(getDiff(start));
+    }, 0);
 
-  useEffect(() => {
-    if (!isMounted) return;
     const id = window.setInterval(() => {
       setValue(getDiff(start));
     }, 1000);
 
-    return () => window.clearInterval(id);
-  }, [isMounted, start]);
+    return () => {
+      window.clearTimeout(kickoff);
+      window.clearInterval(id);
+    };
+  }, [start]);
 
-  if (!isMounted) {
+  if (!isClientReady || !value) {
     return (
       <div className="grid w-full max-w-xl grid-cols-2 gap-4 sm:grid-cols-4">
         {["Dias", "Horas", "Min", "Seg"].map((label) => (

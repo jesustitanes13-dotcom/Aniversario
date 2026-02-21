@@ -11,22 +11,18 @@ type BucketListProps = {
 const STORAGE_KEY = "aniversario-bucket-list";
 
 export default function BucketList({ initialItems }: BucketListProps) {
-  const [items, setItems] = useState<BucketItem[]>(initialItems);
-  const [newItem, setNewItem] = useState("");
-
-  useEffect(() => {
+  const [items, setItems] = useState<BucketItem[]>(() => {
+    if (typeof window === "undefined") return initialItems;
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as BucketItem[];
-        if (Array.isArray(parsed)) {
-          setItems(parsed);
-        }
-      } catch {
-        setItems(initialItems);
-      }
+    if (!saved) return initialItems;
+    try {
+      const parsed = JSON.parse(saved) as BucketItem[];
+      return Array.isArray(parsed) ? parsed : initialItems;
+    } catch {
+      return initialItems;
     }
-  }, [initialItems]);
+  });
+  const [newItem, setNewItem] = useState("");
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
