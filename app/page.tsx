@@ -1,5 +1,5 @@
-import AcademicDisciplineOS from "./components/AcademicDisciplineOS";
+import GPAStandardApp from "./components/GPAStandardApp";
 
 export default function Home() {
-  return <AcademicDisciplineOS />;
+  return <GPAStandardApp />;
 }

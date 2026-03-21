@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Academic Discipline OS",
+  title: "GPA Standard",
   description:
-    "Mobile-first academic Life OS with syllabus AI, GPA simulation, and deadline automation.",
+    "GPA Standard app with Syllabus AI, Bento Calendar, Magic Link sync, and GPA tracking.",
 };
 
 export default function RootLayout({

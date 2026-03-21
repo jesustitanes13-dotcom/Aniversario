@@ -16,7 +16,7 @@ interface ReminderRequestPayload {
 }
 
 const DAY_MS = 1000 * 60 * 60 * 24;
-const DAY_MARKS = new Set([1, 2, 3]);
+const DAY_MARKS = new Set([2, 7]);
 
 const buildReminderKey = (taskId: string, dayMark: number) => `${taskId}:${dayMark}`;
 
@@ -24,14 +24,14 @@ const composeBody = (taskTitle: string, hoursLeft: number, dayMark: number) =>
   [
     "Senior Partner Alert",
     "",
-    `A monitored academic deadline is approaching: ${taskTitle}.`,
+    `¡Jesús, te faltan ${dayMark} días para: ${taskTitle}!`,
     `Remaining time: approximately ${hoursLeft} hour(s).`,
-    `Reminder window: ${dayMark} day mark.`,
+    "This is a high-priority academic checkpoint.",
     "",
     "Required action:",
     "1) Lock a focused study block today.",
-    "2) Complete the highest-impact deliverable first.",
-    "3) Confirm submission pipeline before cutoff.",
+    "2) Prioritize exam-critical tasks before lower-impact tasks.",
+    "3) Verify submission logistics before cutoff.",
   ].join("\n");
 
 export async function POST(request: Request) {
@@ -124,6 +124,6 @@ export async function POST(request: Request) {
     message:
       sentCount > 0
         ? `Reminder scan finished. ${sentCount} email(s) sent.`
-        : "Reminder scan finished. No emails due for 3/2/1-day windows.",
+        : "Reminder scan finished. No emails due for 7/2-day windows.",
   });
 }
