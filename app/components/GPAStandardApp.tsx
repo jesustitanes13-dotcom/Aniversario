@@ -43,7 +43,6 @@ import {
   formatCountdown,
   formatDateLabel,
   formatTimeLabel,
-  getDaysUntil,
   getEffectiveWeights,
   getGraduationCountdown,
   getScheduleStatusLine,
@@ -787,7 +786,7 @@ export default function GPAStandardApp() {
         ...previous.chatHistory,
         {
           id: createId(),
-          role: "user",
+          role: "user" as const,
           content: question,
           createdAt: new Date().toISOString(),
         },
@@ -817,7 +816,7 @@ export default function GPAStandardApp() {
           ...previous.chatHistory,
           {
             id: createId(),
-            role: "assistant",
+            role: "assistant" as const,
             content: answer,
             createdAt: new Date().toISOString(),
           },
@@ -831,7 +830,7 @@ export default function GPAStandardApp() {
           ...previous.chatHistory,
           {
             id: createId(),
-            role: "assistant",
+            role: "assistant" as const,
             content: fallback,
             createdAt: new Date().toISOString(),
           },
